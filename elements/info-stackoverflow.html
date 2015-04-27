@@ -1,0 +1,58 @@
+<link rel="import" href="/components/core-ajax/core-ajax.html">
+<link rel="import" href="/components/core-localstorage/core-localstorage.html">
+<link rel="import" href="/components/core-icons/core-icons.html">
+<link rel="import" href="/components/core-icons/image-icons.html">
+<link rel="import" href="/components/paper-spinner/paper-spinner.html">
+<link rel="import" href="/components/paper-button/paper-button.html">
+<link rel="import" href="/elements/brand-icons.html">
+
+<polymer-element name="info-stackoverflow" attributes="userId">
+<template>
+  <core-ajax
+    id="request"
+    url="https://api.stackexchange.com/2.2/users/{{userId}}?site=stackoverflow"
+    handleAs="json"
+    on-core-response="{{handleResponse}}"></core-ajax>
+  <core-localstorage
+    name="stackoverflow-user-{{userId}}"
+    value="{{response}}"
+    on-core-localstorage-load="{{handleCache}}"></core-localstorage>
+
+  <!-- <template bind="{{ singleton }}">
+    Creates a single instance with {{ bla }} when singleton model data is provided.
+  </template> -->
+
+    <div id="body">
+      stackoverflow:
+      <paper-spinner id="responseSpinner" active></paper-spinner>
+      <strong>{{userInfo.display_name}}</strong>
+      <core-icon icon="brand-icons:stackoverflow" style="height: 5em; width: 5em;"></core-icon> Reputation: {{userInfo.reputation}}
+      <strong><core-icon icon="image:lens" style="color: #FC0;"></core-icon> {{userInfo.badge_counts.gold}}</strong>
+      <strong><core-icon icon="image:lens" style="color: #C5C5C5;"></core-icon> {{userInfo.badge_counts.silver}}</strong>
+      <strong><core-icon icon="image:lens" style="color: #C96;"></core-icon> {{userInfo.badge_counts.bronze}}</strong>
+    </div>
+</template>
+<script>
+  Polymer({
+    singleton: {'bla': 'hello'},
+
+    handleCache: function() {
+      if (typeof this.response === 'undefined') {
+        console.log('perforimng actual request');
+        this.$.request.go();
+      } else {
+        console.log('using cached value!');
+        console.log(this.response);
+        this.handleResponse()
+      }
+    },
+    handleResponse: function(e) {
+      if(e) {
+        this.response = e.detail.response;
+      }
+      this.userInfo = this.response.items[0];
+      this.$.responseSpinner.active = false;
+    }
+  });
+</script>
+</polymer-element>
