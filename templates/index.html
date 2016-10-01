@@ -1,116 +1,146 @@
-{%- raw -%}
 <!DOCTYPE html>
 <html>
   <head>
-    <title>core-scaffold</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <!-- 1. Load platform support before any code that touches the DOM. -->
-    <script src="/components/webcomponentsjs/webcomponents.min.js"></script>
-    <!-- 2. Load the component using an HTML Import -->
-    <link rel="import" href="/components/core-scaffold/core-scaffold.html">
-    <link rel="import" href="/components/paper-item/paper-item.html">
-    <link rel="import" href="/components/core-toolbar/core-toolbar.html">
-    <link rel="import" href="/components/paper-shadow/paper-shadow.html">
-    <link rel="import" href="/elements/info-stackoverflow.html">
+    <title>{{ constants.NAME }}</title>
 
-    <link rel="import" href="/components/core-menu/core-menu.html">
-    <link rel="import" href="/components/core-item/core-item.html">
-    <link rel="import" href="/components/core-header-panel/core-header-panel.html">
-    <link rel="import" href="/components/core-drawer-panel/core-drawer-panel.html">
-    <link rel="import" href="/components/core-icons/core-icons.html">
-    <link rel="import" href="/components/core-scroll-header-panel/core-scroll-header-panel.html">
-    <link rel="import" href="/components/paper-icon-button/paper-icon-button.html">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+
+    <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.red-green.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <link rel="stylesheet" href="https://cdn.rawgit.com/IonicaBizau/github-calendar/gh-pages/dist/github-calendar.css"/>
+  </head>
+  <body>
+
 
     <style>
+    .layout-transparent {
+      background: url('https://getmdl.io/assets/demos/transparent.jpg') center / cover;
+    }
+    .layout-transparent .mdl-layout__header,
+    .layout-transparent .mdl-layout__drawer-button {
+      color: white;
+    }
 
-    core-toolbar {
-      background-color: #7986CB;
+    .main-card-wide.mdl-card {
+      width: 100%;
+    }
+    .github-card > .mdl-card__title {
+      color: #fff;
+      height: 176px;
+      background-image: url('https://octodex.github.com/images/daftpunktocat-thomas.gif');
+      background-position: bottom right;
+      background-size: 15%;
+      background-repeat: no-repeat;
+      background-color: #46B6AC;
+    }
+    .main-card-wide > .mdl-card__menu {
       color: #fff;
     }
-
-    #navheader {
-      background-color: red;
+    .stackoverflow-card > .mdl-card__title {
+      color: #fff;
+      height: 176px;
+      background-image: url('http://cdn.sstatic.net/Sites/stackoverflow/company/img/logos/so/so-logo.png?v=9c558ec15d8a');
+      background-position: bottom right;
+      background-size: 50%;
+      background-repeat: no-repeat;
+      background-color: brown;
     }
-
-    #drawerPanel:not([narrow]) #menuButton {
-      display: none;
-    }
-
-    .content {
-      padding: 20px;
-    }
-
     </style>
-  </head>
-  <body unresolve>
 
-    <core-drawer-panel id="drawerPanel">
-
-      <core-header-panel drawer mode="seamed" style="background-color: white;">
-        <core-toolbar id="navheader">
-          <span>Menu</span>
-        </core-toolbar>
-        <core-menu>
-          <paper-item>Stackoverflow</paper-item>
-          <paper-item>Github</paper-item>
-          <paper-item>Github</paper-item>
-          <paper-item>Github</paper-item>
-          <paper-item>Github</paper-item>
-          <paper-item>Github</paper-item>
-          <paper-item>Github</paper-item>
-          <paper-item>Github</paper-item>
-          <paper-item>Github</paper-item>
-          <paper-item>Github</paper-item>
-          <paper-item>Github</paper-item>
-          <paper-item>Github</paper-item>
-          <paper-item>Github</paper-item>
-          <paper-item>Github</paper-item>
-          <paper-item>Github</paper-item>
-          <paper-item>Github</paper-item>
-          <paper-item>Github</paper-item>
-          <paper-item>Github</paper-item>
-          <paper-item>Github</paper-item>
-          <paper-item>Github</paper-item>
-          <paper-item>Github</paper-item>
-          <paper-item>Github</paper-item>
-          <paper-item>Github</paper-item>
-          <paper-item>Github</paper-item>
-          <paper-item>Github</paper-item>
-        </core-menu>
-      </core-header-panel>
-
-      <core-header-panel main mode="waterfall-tall">
-        <core-toolbar>
-          <paper-icon-button id="menuButton" icon="menu" on-tap="{{togglePanel}}"></paper-icon-button>
-          <span flex>Title</span>
-          <paper-icon-button id="searchbutton" icon="search"></paper-icon-button>
-        </core-toolbar>
-        <div class="content">
-          <p>If drawer is hidden, press button to display drawer.</p>
-
-          <info-stackoverflow userId="1279005"></info-stackoverflow>
-
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
+    <div class="layout-transparent mdl-layout mdl-js-layout">
+      <header class="mdl-layout__header mdl-layout__header--transparent">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title">{{ constants.NAME }}</span>
+          <div class="mdl-layout-spacer"></div>
+          <nav class="mdl-navigation">
+            {%- for name, url in constants.NETWORKS.items() -%}
+              <a class="mdl-navigation__link" target="blank" href="{{ url }}">{{ name }}</a>
+            {%- endfor -%}
+          </nav>
         </div>
-      </core-header-panel>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">{{ constants.NAME }}</span>
+        <nav class="mdl-navigation">
+          {%- for name, url in constants.NETWORKS.items() -%}
+            <a class="mdl-navigation__link" target="blank" href="{{ url }}">{{ name }}</a>
+          {%- endfor -%}
+        </nav>
+      </div>
+      <main class="mdl-layout__content">
 
-    </core-drawer-panel>
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--3-col"></div>
+          <div class="mdl-cell mdl-cell--6-col">
+            <div class="github-card main-card-wide mdl-card mdl-shadow--16dp">
+              <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">GitHub Contributions</h2>
+              </div>
+              <div class="mdl-card__supporting-text">
+                <div class="github-calendar">
+                  <div class="mdl-spinner mdl-js-spinner is-active"></div>
+                </div>
+                A summary of pull requests, issues opened, and commits to the default and gh-pages branches.
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+                <a href="{{ constants.GITHUB_URL }}" target="blank" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                  See all activity
+                </a>
+              </div>
+            </div>
+
+          </div>
+          <div class="mdl-cell mdl-cell--3-col"></div>
+        </div>
+
+
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--3-col"></div>
+          <div class="mdl-cell mdl-cell--6-col">
+            <div class="stackoverflow-card main-card-wide mdl-card mdl-shadow--16dp">
+              <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">Stack Overflow</h2>
+              </div>
+              <div class="mdl-card__supporting-text">
+                <div>
+                  <img src="http://stackoverflow.com/users/flair/1279005.png?theme=clean">
+                </div>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+                <a href="{{ constants.STACKOVERFLOW_URL }}" target="blank" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                  See all activity
+                </a>
+              </div>
+            </div>
+
+          </div>
+          <div class="mdl-cell mdl-cell--3-col"></div>
+        </div>
+
+      </main>
+
+      <footer class="mdl-mini-footer">
+        <div class="mdl-mini-footer__left-section">
+          <ul class="mdl-mini-footer__link-list">
+            <li><a href="https://github.com/sadovnychyi/dmit.ro">Source Code on GitHub</a></li>
+          </ul>
+        </div>
+      </footer>
+
+    </div>
 
   </body>
 
+  <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+  <script src="https://cdn.rawgit.com/IonicaBizau/github-calendar/gh-pages/dist/github-calendar.min.js"></script>
+  <script>
+    GitHubCalendar(".github-calendar", "sadovnychyi", {
+      summary_text: ' ',
+      proxy: function (url) {
+        return "/proxy?url=" + url;
+      },
+      global_stats: false,
+    });
+  </script>
 </html>
-{%- endraw -%}

@@ -1,5 +1,5 @@
 application: sadovnychyi
-version: polymer
+version: v0
 runtime: python27
 api_version: 1
 threadsafe: true
@@ -11,10 +11,6 @@ builtins:
 handlers:
 - url: /static
   static_dir: static
-- url: /elements
-  static_dir: elements
-- url: /components
-  static_dir: bower_components
 
 - url: /_ah/admin.*
   script: google.appengine.ext.admin.application
@@ -29,18 +25,3 @@ libraries:
   version: latest
 - name: jinja2
   version: latest
-
-# pagespeed:
-#   domains_to_rewrite:
-#   - dmit.ro
-#   enabled_rewriters:
-#   - ImageAddDimensions
-#   - MinifyCss
-#   - InlineJs
-#   - InlineImages
-#   - CollapseWhitespace
-#   - CombineHeads
-#   - ElideAttributes
-#   - RemoveComments
-#   - RemoveQuotes
-#   - DeferJs
