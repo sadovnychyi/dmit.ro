@@ -1,0 +1,89 @@
+<style>
+  .so-badge {
+    border: 1px solid transparent;
+    border-radius: 2px;
+    padding: 5px;
+  }
+  .so-badge .mdl-typography--font-bold {
+    color: #535a60;
+  }
+  .so-badge.so-gold {
+    background: #fff8e2;
+    border-color: #ece3c8;
+    color: #ffcc01;
+  }
+  .so-badge.so-silver {
+    background: #edeeef;
+    border-color: #e0e1e3;
+    color: #b4b8bc;
+  }
+  .so-badge.so-bronze {
+    background: #f9ebe1;
+    border-color: #f1decc;
+    color: #d1a684;
+  }
+</style>
+
+
+<div class="stackoverflow-card main-card-wide mdl-card mdl-shadow--16dp">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Stack Overflow</h2>
+  </div>
+  <div class="mdl-card__supporting-text">
+
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--6-col mdl-typography--text-center">REPUTATION</div>
+      <div class="mdl-cell mdl-cell--6-col mdl-typography--text-center">BADGES</div>
+    </div>
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--6-col mdl-typography--text-center mdl-typography--font-bold"><h3 id="so-rep"></h3></div>
+      <div class="mdl-cell mdl-cell--6-col mdl-typography--text-center">
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--4-col so-badge so-gold">
+            <div class="mdl-grid mdl-grid--no-spacing">
+              <div class="mdl-cell mdl-cell--1-col mdl-typography--text-center">●</div>
+              <div class="mdl-cell mdl-cell--2-offset mdl-cell--6-col mdl-typography--text-center mdl-typography--font-bold"></div>
+            </div>
+          </div>
+          <div class="mdl-cell mdl-cell--4-col so-badge so-silver">
+            <div class="mdl-grid mdl-grid--no-spacing">
+              <div class="mdl-cell mdl-cell--1-col mdl-typography--text-center">●</div>
+              <div class="mdl-cell mdl-cell--2-offset mdl-cell--6-col mdl-typography--text-center mdl-typography--font-bold"></div>
+            </div>
+          </div>
+          <div class="mdl-cell mdl-cell--4-col so-badge so-bronze">
+            <div class="mdl-grid mdl-grid--no-spacing">
+              <div class="mdl-cell mdl-cell--1-col mdl-typography--text-center">●</div>
+              <div class="mdl-cell mdl-cell--2-offset mdl-cell--6-col mdl-typography--text-center mdl-typography--font-bold"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="mdl-card__actions mdl-card--border">
+    <a href="{{ constants.STACKOVERFLOW_URL }}" target="blank" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+      See all activity
+    </a>
+  </div>
+</div>
+
+<script>
+addLoadEvent(function() {
+  console.log('Initializing stackoverflow card...');
+  fetch('/proxy?url=https://api.stackexchange.com/2.2/users/1279005?site=stackoverflow')
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function(response) {
+    response = response.items[0]
+    document.querySelector('.so-gold .mdl-typography--font-bold').innerHTML = response.badge_counts.gold
+    document.querySelector('.so-silver .mdl-typography--font-bold').innerHTML = response.badge_counts.silver
+    document.querySelector('.so-bronze .mdl-typography--font-bold').innerHTML = response.badge_counts.bronze
+    document.getElementById('so-rep').innerHTML = response.reputation
+    console.log(response);
+  });
+
+});
+</script>

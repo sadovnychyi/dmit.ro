@@ -2,18 +2,36 @@
 <html>
   <head>
     <title>{{ constants.NAME }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"> -->
 
-    <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.red-green.min.css" />
+    <!-- <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.red-green.min.css" /> -->
+    <link rel="stylesheet" href="/static/material.red-green.min.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
-    <link rel="stylesheet" href="https://cdn.rawgit.com/IonicaBizau/github-calendar/gh-pages/dist/github-calendar.css"/>
+    <script>
+      function addLoadEvent(func) {
+        var oldonload = window.onload;
+        if (typeof window.onload != 'function') {
+          window.onload = func;
+        } else {
+          window.onload = function() {
+            if (oldonload) {
+              oldonload();
+            }
+            func();
+          }
+        }
+      }
+    </script>
   </head>
   <body>
 
 
     <style>
+    .material-icons {
+      vertical-align: middle;
+    }
     .layout-transparent {
       background: url('https://getmdl.io/assets/demos/transparent.jpg') center / cover;
     }
@@ -25,6 +43,9 @@
     .main-card-wide.mdl-card {
       width: 100%;
     }
+    .main-card-wide > .mdl-card__menu {
+      color: #fff;
+    }
     .github-card > .mdl-card__title {
       color: #fff;
       height: 176px;
@@ -33,9 +54,6 @@
       background-size: 15%;
       background-repeat: no-repeat;
       background-color: #46B6AC;
-    }
-    .main-card-wide > .mdl-card__menu {
-      color: #fff;
     }
     .stackoverflow-card > .mdl-card__title {
       color: #fff;
@@ -55,7 +73,7 @@
           <div class="mdl-layout-spacer"></div>
           <nav class="mdl-navigation">
             {%- for name, url in constants.NETWORKS.items() -%}
-              <a class="mdl-navigation__link" target="blank" href="{{ url }}">{{ name }}</a>
+              <a class="mdl-navigation__link" href="{{ url }}">{{ name }}</a>
             {%- endfor -%}
           </nav>
         </div>
@@ -64,60 +82,24 @@
         <span class="mdl-layout-title">{{ constants.NAME }}</span>
         <nav class="mdl-navigation">
           {%- for name, url in constants.NETWORKS.items() -%}
-            <a class="mdl-navigation__link" target="blank" href="{{ url }}">{{ name }}</a>
+            <a class="mdl-navigation__link" href="{{ url }}">{{ name }}</a>
           {%- endfor -%}
         </nav>
       </div>
       <main class="mdl-layout__content">
 
         <div class="mdl-grid">
-          <div class="mdl-cell mdl-cell--3-col"></div>
-          <div class="mdl-cell mdl-cell--6-col">
-            <div class="github-card main-card-wide mdl-card mdl-shadow--16dp">
-              <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">GitHub Contributions</h2>
-              </div>
-              <div class="mdl-card__supporting-text">
-                <div class="github-calendar">
-                  <div class="mdl-spinner mdl-js-spinner is-active"></div>
-                </div>
-                A summary of pull requests, issues opened, and commits to the default and gh-pages branches.
-              </div>
-              <div class="mdl-card__actions mdl-card--border">
-                <a href="{{ constants.GITHUB_URL }}" target="blank" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                  See all activity
-                </a>
-              </div>
-            </div>
-
+          <div class="mdl-cell mdl-cell--hide-phone mdl-cell--1-col-tablet mdl-cell--3-col-desktop"></div>
+          <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
+            {%- include 'card-github.html' -%}
           </div>
-          <div class="mdl-cell mdl-cell--3-col"></div>
         </div>
-
-
         <div class="mdl-grid">
-          <div class="mdl-cell mdl-cell--3-col"></div>
-          <div class="mdl-cell mdl-cell--6-col">
-            <div class="stackoverflow-card main-card-wide mdl-card mdl-shadow--16dp">
-              <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">Stack Overflow</h2>
-              </div>
-              <div class="mdl-card__supporting-text">
-                <div>
-                  <img src="http://stackoverflow.com/users/flair/1279005.png?theme=clean">
-                </div>
-              </div>
-              <div class="mdl-card__actions mdl-card--border">
-                <a href="{{ constants.STACKOVERFLOW_URL }}" target="blank" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                  See all activity
-                </a>
-              </div>
-            </div>
-
+          <div class="mdl-cell mdl-cell--hide-phone mdl-cell--1-col-tablet mdl-cell--3-col-desktop"></div>
+          <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
+            {%- include 'card-stackoverflow.html' -%}
           </div>
-          <div class="mdl-cell mdl-cell--3-col"></div>
         </div>
-
       </main>
 
       <footer class="mdl-mini-footer">
@@ -132,15 +114,6 @@
 
   </body>
 
-  <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
-  <script src="https://cdn.rawgit.com/IonicaBizau/github-calendar/gh-pages/dist/github-calendar.min.js"></script>
-  <script>
-    GitHubCalendar(".github-calendar", "sadovnychyi", {
-      summary_text: ' ',
-      proxy: function (url) {
-        return "/proxy?url=" + url;
-      },
-      global_stats: false,
-    });
-  </script>
+  <!-- <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script> -->
+  <script defer src="/static/material.min.js"></script>
 </html>

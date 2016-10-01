@@ -1,0 +1,103 @@
+<link rel="stylesheet" href="https://cdn.rawgit.com/IonicaBizau/github-calendar/gh-pages/dist/github-calendar.css"/>
+
+<div class="github-card main-card-wide mdl-card mdl-shadow--16dp">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">GitHub</h2>
+  </div>
+  <div class="mdl-card__supporting-text">
+
+    <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+      <div class="mdl-tabs__tab-bar">
+          <a href="#github-contributions" class="mdl-tabs__tab is-active">Contributions</a>
+          <a href="#github-repositories" class="mdl-tabs__tab">Repositories</a>
+          <a href="#github-stars" class="mdl-tabs__tab">Stars</a>
+      </div>
+
+      <div class="mdl-tabs__panel is-active" id="github-contributions">
+        <div class="github-calendar">
+          <div class="mdl-spinner mdl-js-spinner is-active"></div>
+        </div>
+        A summary of pull requests, issues opened, and commits to the default and gh-pages branches.
+      </div>
+      <div class="mdl-tabs__panel" id="github-repositories"></div>
+      <div class="mdl-tabs__panel" id="github-stars"></div>
+    </div>
+  </div>
+  <div class="mdl-card__actions mdl-card--border">
+    <a href="{{ constants.GITHUB_URL }}" target="blank" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+      See all activity
+    </a>
+  </div>
+</div>
+
+<script defer src="https://cdn.rawgit.com/IonicaBizau/github-calendar/gh-pages/dist/github-calendar.min.js"></script>
+<script>
+addLoadEvent(function() {
+  console.log('Initializing github calendar...');
+  GitHubCalendar(".github-calendar", "sadovnychyi", {
+    summary_text: ' ',
+    proxy: function (url) {
+      return "/proxy?url=" + url;
+    },
+    global_stats: false,
+  });
+});
+
+addLoadEvent(function() {
+  console.log('Initializing github repos...');
+  fetch('/proxy?url=https://api.github.com/users/sadovnychyi/repos?sort=updated&per_page=10')
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function(repos) {
+    for (var i = 0; i < repos.length; ++i) {
+      var repo = repos[i];
+      if (repo.fork) {
+        continue;
+      }
+      tmpl = `
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--4-col">
+            <a href="${repo.html_url}">${repo.name}</a>
+          </div>
+          <div class="mdl-cell mdl-cell--4-col mdl-typography--text-center">${repo.language}</div>
+          <div class="mdl-cell mdl-cell--4-col">
+            <i class="material-icons md-18">star</i>
+            ${repo.stargazers_count}
+          </div>
+        </div>`
+      document.getElementById('github-repositories').insertAdjacentHTML('beforeend', tmpl);
+
+    }
+  });
+});
+
+addLoadEvent(function() {
+  console.log('Initializing github stars...');
+  fetch('/proxy?url=https://api.github.com/users/sadovnychyi/starred?per_page=10')
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function(repos) {
+    for (var i = 0; i < repos.length; ++i) {
+      var repo = repos[i];
+      if (repo.fork) {
+        continue;
+      }
+      tmpl = `
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--4-col">
+            <a href="${repo.html_url}">${repo.full_name}</a>
+          </div>
+          <div class="mdl-cell mdl-cell--4-col mdl-typography--text-center">${repo.language}</div>
+          <div class="mdl-cell mdl-cell--4-col">
+            <i class="material-icons md-18">star</i>
+            ${repo.stargazers_count}
+          </div>
+        </div>`
+      document.getElementById('github-stars').insertAdjacentHTML('beforeend', tmpl);
+
+    }
+  });
+});
+</script>
