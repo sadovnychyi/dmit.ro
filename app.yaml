@@ -1,0 +1,27 @@
+application: sadovnychyi
+version: v0
+runtime: python27
+api_version: 1
+threadsafe: true
+
+builtins:
+- appstats: on
+- deferred: on
+
+handlers:
+- url: /static
+  static_dir: static
+
+- url: /_ah/admin.*
+  script: google.appengine.ext.admin.application
+  login: admin
+
+- url: .*
+  script: main.application
+
+
+libraries:
+- name: webapp2
+  version: latest
+- name: jinja2
+  version: latest
