@@ -45,7 +45,7 @@ addLoadEvent(function() {
 
 addLoadEvent(function() {
   console.log('Initializing github repos...');
-  fetch('/proxy?url=https://api.github.com/users/sadovnychyi/repos?sort=updated&per_page=10')
+  fetch('/proxy?url=https://api.github.com/users/sadovnychyi/repos?sort=updated&per_page=10&client_id={{ constants.GITHUB_KEY}}&client_secret={{ constants.GITHUB_SECRET }}')
   .then(function (response) {
     return response.json();
   })
@@ -74,7 +74,7 @@ addLoadEvent(function() {
 
 addLoadEvent(function() {
   console.log('Initializing github stars...');
-  fetch('/proxy?url=https://api.github.com/users/sadovnychyi/starred?per_page=10')
+  fetch('/proxy?url=https://api.github.com/users/sadovnychyi/starred?per_page=10&client_id={{ constants.GITHUB_KEY}}&client_secret={{ constants.GITHUB_SECRET }}')
   .then(function (response) {
     return response.json();
   })

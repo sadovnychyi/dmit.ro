@@ -72,7 +72,7 @@
 <script>
 addLoadEvent(function() {
   console.log('Initializing stackoverflow card...');
-  fetch('/proxy?url=https://api.stackexchange.com/2.2/users/1279005?site=stackoverflow')
+  fetch('/proxy?url=https://api.stackexchange.com/2.2/users/1279005?site=stackoverflow&key={{ constants.STACKOVERFLOW_SECRET }}')
   .then(function (response) {
     return response.json();
   })

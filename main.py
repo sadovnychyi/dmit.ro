@@ -1,5 +1,7 @@
 import webapp2
+import urlparse
 import logging
+import urllib
 from webapp2_extras import jinja2
 from google.appengine.api import urlfetch, memcache
 import constants
@@ -26,6 +28,17 @@ class BaseHandler(webapp2.RequestHandler):
 class ProxyHandler(webapp2.RequestHandler):
   def get(self):
     url = self.request.get('url')
+
+    scheme, netloc, path, query_string, fragment = urlparse.urlsplit(url)
+    query_params = urlparse.parse_qs(query_string)
+
+    for key, value in self.request.params.items():
+      if key == 'url':
+        continue
+      query_params[key] = [value]
+
+    new_query_string = urllib.urlencode(query_params, doseq=True)
+    url = urlparse.urlunsplit((scheme, netloc, path, new_query_string, fragment))
     key = '_proxy_%s' % url
     result = memcache.get(key)
     if result is None:
