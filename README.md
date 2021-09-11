@@ -1,2 +1,2 @@
 # dmit.ro
-http://dmit.ro
+https://dmit.ro
